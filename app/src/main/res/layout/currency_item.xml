@@ -19,7 +19,6 @@
             android:layout_margin="2dp"
             android:padding="3dp"
             android:text="Symbol"
-            android:textColor="@color/black_shade_1"
             android:layout_marginLeft="2dp"
             android:layout_toLeftOf="@id/idTVCurrencyRate"
             android:textStyle="bold"/>
@@ -28,7 +27,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/idTVSymbol"
-            android:textColor="@color/black_shade_1"
             android:text="Name"
             android:padding="3dp"
             android:layout_margin="2dp"/>
@@ -39,7 +37,6 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:text="Rate"
-            android:textColor="@color/black_shade_1"
             android:layout_marginRight="3dp"
             android:layout_marginLeft="2dp"
             android:layout_marginTop="2dp"

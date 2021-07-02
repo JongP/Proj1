@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.viewpagerexample.R;
 import com.example.viewpagerexample.adapters.ImageAdapter;
@@ -54,6 +55,7 @@ public class FragGallery extends Fragment {
     RecyclerView recyclerView;  // 이미지를 보여줄 리사이클러뷰
     ImageAdapter adapter;  // 리사이클러뷰에 적용시킬 어댑터
 
+    private SwipeRefreshLayout swipe;
 
     //상태 저장하기
     public static FragGallery newInstance() {
@@ -75,17 +77,45 @@ public class FragGallery extends Fragment {
         sharePref = getActivity().getSharedPreferences(SHARE_NAME, Context.MODE_PRIVATE);
         editor = sharePref.edit();
 
+        swipe = view.findViewById(R.id.swipelayout);
+
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Map<String, ?> totalValue = sharePref.getAll();
+                cnt = sharePref.getInt("Count",0 );
+                Log.d("count", "갯수:"+cnt);
+                Toast.makeText(getContext(), "갯수:"+cnt, Toast.LENGTH_SHORT).show();
+
+                if(cnt==0){
+                    uriList.clear();
+                }
+
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
+
+                swipe.setRefreshing(false);
+            }
+        });
 
 
         Map<String, ?> totalValue = sharePref.getAll();
         cnt = sharePref.getInt("Count",0 );
         Log.d("count", "갯수:"+cnt);
+        Toast.makeText(getContext(), "갯수:"+cnt, Toast.LENGTH_SHORT).show();
+
 
         try {
             for(int i=0;i<cnt;i++){
+                Log.d("look", "for 성공");
                 String imgpath = getActivity().getCacheDir() + "/" + i;   // 내부 저장소에 저장되어 있는 이미지 경로
+                Log.d("look", "impath 성공"+imgpath);
                 Bitmap bm = BitmapFactory.decodeFile(imgpath);
+                Log.d("look", "비트맵성공"+bm);
+
                 Uri uri_set = getImageUri(getContext(), bm);
+                Log.d("look", "uri 성공");
+
                 uriList.add(uri_set);
             }
         } catch (Exception e) {
@@ -137,14 +167,14 @@ public class FragGallery extends Fragment {
                 if (clipData != null) {
 
                     if(clipData.getItemCount() > 20) {   // 선택한 이미지가 11장 이상인 경우
-                            Toast.makeText(getContext(), "사진은 10장까지 선택 가능합니다.", Toast.LENGTH_LONG).show();
-                        }
+                        Toast.makeText(getContext(), "사진은 10장까지 선택 가능합니다.", Toast.LENGTH_LONG).show();
+                    }
 
-                        else {
-                            ContentResolver resolver = getActivity().getContentResolver();
-                            for (int i = 0; i < clipData.getItemCount(); i++) {
+                    else {
+                        ContentResolver resolver = getActivity().getContentResolver();
+                        for (int i = 0; i < clipData.getItemCount(); i++) {
 
-                                Uri uri_re = clipData.getItemAt(i).getUri();
+                            Uri uri_re = clipData.getItemAt(i).getUri();
 
                             try {
                                 uriList.add(uri_re);  //uri를 list에 담는다.
@@ -158,11 +188,11 @@ public class FragGallery extends Fragment {
                             }
 
                         }
-                            updateData(cnt);
+                        updateData(cnt);
                         adapter = new ImageAdapter(uriList, getContext());
                         recyclerView.setAdapter(adapter);   // 리사이클러뷰에 어댑터 세팅
-                       recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));     // 리사이클러뷰 수평 스크롤 적용
-                       // recyclerView.addItemDecoration(new RecyclerViewDecoration(10, 10));
+                        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));     // 리사이클러뷰 수평 스크롤 적용
+                        // recyclerView.addItemDecoration(new RecyclerViewDecoration(10, 10));
 
 
 
@@ -197,6 +227,8 @@ public class FragGallery extends Fragment {
 
     public void saveBitmapToJpeg (Bitmap bitmap){   // 선택한 이미지 내부 저장소에 저장
         File tempFile = new File(getActivity().getCacheDir(), cnt.toString());
+        Log.d("look", "파일경로"+tempFile);
+
         // 파일 경로와 이름 넣기
         try {
             tempFile.createNewFile();   // 자동으로 빈 파일을 생성하기
@@ -210,11 +242,16 @@ public class FragGallery extends Fragment {
     }
 
 
+
     private Uri getImageUri(Context context, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        Log.d("look", "compress 성공");
         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
+        Log.d("look", "insert 성공"+path);
+        Uri i = Uri.parse(path);
+        Log.d("look", "parse 성공");
+        return i;
     }
 
 
@@ -227,5 +264,4 @@ public class FragGallery extends Fragment {
         editor.putInt("Count", 0);
         editor.apply();
     }
-
 }

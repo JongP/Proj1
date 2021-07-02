@@ -45,6 +45,8 @@ public class OrderActivity extends AppCompatActivity {
         tv_price.setText("$ "+String.valueOf(price));
 
 
+
+
         btn_plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

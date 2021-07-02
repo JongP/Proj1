@@ -37,8 +37,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:text="Jong Pakr"
-                android:textColor="@color/black"/>
+                android:text="Jong Pakr"/>
 
             <TextView
                 android:id="@+id/tv_conatactnum"
@@ -46,8 +45,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:layout_marginTop="5dp"
-                android:text="010"
-                android:textColor="@color/black"/>
+                android:text="010"/>
 
         </LinearLayout>
 

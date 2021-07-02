@@ -80,6 +80,8 @@ public class FragDoge extends Fragment implements CurrencyRVAdapter.GetOneCoin{
             db.userDao().insert(user);
         }
 
+        Log.d("look", "getQuantity"+db.userDao().getQuantity("DOGE"));
+
         getCurrencyData();
 
 
