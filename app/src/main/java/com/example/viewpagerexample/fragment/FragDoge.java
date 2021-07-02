@@ -28,6 +28,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.viewpagerexample.CurrencyModel;
 import com.example.viewpagerexample.OrderActivity;
 import com.example.viewpagerexample.R;
+import com.example.viewpagerexample.Room.AppDataBase_wallet;
+import com.example.viewpagerexample.Room.User_wallet;
 import com.example.viewpagerexample.WalletActivity;
 import com.example.viewpagerexample.adapters.CurrencyRVAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -49,6 +51,7 @@ public class FragDoge extends Fragment implements CurrencyRVAdapter.GetOneCoin{
     private List<CurrencyModel> currencyModelArrayList;
     private CurrencyRVAdapter currencyRVAdapter;
     private FloatingActionButton fltbtn;
+    private AppDataBase_wallet db;
 
     //상태 저장하기
     public static FragDoge newInstance() {
@@ -69,6 +72,13 @@ public class FragDoge extends Fragment implements CurrencyRVAdapter.GetOneCoin{
         currenciesRV.setLayoutManager(new LinearLayoutManager(getContext()));
         currenciesRV.setAdapter(currencyRVAdapter);
         fltbtn = view.findViewById(R.id.button);
+
+        db = AppDataBase_wallet.getInstance(getContext());
+
+        if(db.userDao().getDataCount()==0){
+            User_wallet user = new User_wallet("balance", 0, 50000.0);
+            db.userDao().insert(user);
+        }
 
         getCurrencyData();
 
