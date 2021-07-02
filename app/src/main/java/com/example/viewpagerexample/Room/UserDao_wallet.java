@@ -26,6 +26,9 @@ public interface UserDao_wallet {
     @Query("SELECT quantity FROM Wallet WHERE symbol =:p")
     int getQuantity(String p);
 
+    @Query("SELECT value FROM Wallet WHERE symbol =:p")
+    double getValue(String p);
+
     @Query("SELECT * FROM Wallet WHERE symbol =:p")
     User_wallet getWallet(String p);
 

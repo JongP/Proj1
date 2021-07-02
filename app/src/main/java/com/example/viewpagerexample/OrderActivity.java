@@ -11,12 +11,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.viewpagerexample.Room.AppDataBase_wallet;
+import com.example.viewpagerexample.Room.User_wallet;
+
 public class OrderActivity extends AppCompatActivity {
 
-    private TextView tv_symbol,tv_name, tv_price, tv_quantity,tv_total;
+    private TextView tv_symbol,tv_name, tv_price, tv_quantity,tv_total,tv_coinown,tv_coinbalance;
     private Button btn_minus,btn_plus, btn_sell, btn_buy;
-    private int quantity;
-    Double totalPrice;
+    private int quantity,count;
+    Double totalPrice, balance;
+    private AppDataBase_wallet db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +36,28 @@ public class OrderActivity extends AppCompatActivity {
         btn_minus = findViewById(R.id.coin_btn_minus);
         btn_buy = findViewById(R.id.btn_buy);
         btn_sell = findViewById(R.id.btn_sell);
+        tv_coinown = findViewById(R.id.tv_coinown);
+        tv_coinbalance =findViewById(R.id.tv_coinbalance);
         quantity = 0;
-
+        db = AppDataBase_wallet.getInstance(this);
 
         Intent intent = getIntent();
         String symbol = intent.getStringExtra("symbol");
         String name = intent.getStringExtra("name");
         Double price = intent.getDoubleExtra("price",0);
+
+        //have to check
+        count = db.userDao().getQuantity(symbol);
+
+        try {
+            db.userDao().insert(new User_wallet(symbol,0,0.0));
+        }catch (Exception e){
+        }
+
+        balance = db.userDao().getValue("balance");
+
+        tv_coinown.setText("quantity: "+String.valueOf(count));
+        tv_coinbalance.setText("$ "+String.valueOf(balance));
 
         tv_symbol.setText(symbol);
         tv_name.setText(name);
@@ -75,7 +94,47 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
+        btn_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(quantity==0) return;
 
+                if(totalPrice>balance){
+                    Toast.makeText(getApplicationContext(),"Not enough cash, go back to work.",Toast.LENGTH_SHORT).show();
+                }else{
+                    balance = Math.round((balance-totalPrice)*100)/100.0;
+                    count+=quantity;
+
+                    db.userDao().update(count,balance,symbol);
+                    db.userDao().update(0,balance,"balance");
+
+                    Toast.makeText(getApplicationContext(),"We're heading to Mars.",Toast.LENGTH_SHORT).show();
+                    tv_coinbalance.setText("$ "+String.valueOf(balance));
+                    tv_coinown.setText("quantity: "+String.valueOf(count));
+                }
+            }
+        });
+
+        btn_sell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(quantity==0) return;
+                if(quantity>count){
+                    Toast.makeText(getApplicationContext(),"Not enough coins, buy some.",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    balance = Math.round((balance+totalPrice)*100)/100.0;
+                    count = count-quantity;
+
+                    db.userDao().update(count,balance,symbol);
+                    db.userDao().update(0,balance,"balance");
+
+                    Toast.makeText(getApplicationContext(),"Bye",Toast.LENGTH_SHORT).show();
+                    tv_coinbalance.setText("$ "+String.valueOf(balance));
+                    tv_coinown.setText("quantity: "+String.valueOf(count));
+                }
+            }
+        });
 
 
 
