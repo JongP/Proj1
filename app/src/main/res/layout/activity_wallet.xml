@@ -39,8 +39,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:text="Elon Mask"
-                android:textColor="@color/black"/>
+                android:text="Elon Mask"/>
 
             <TextView
                 android:id="@+id/user_balance"
@@ -48,8 +47,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:layout_marginTop="7dp"
-                android:text="경기도 화성시"
-                android:textColor="@color/black"/>
+                android:text="경기도 화성시"/>
 
         </LinearLayout>
 

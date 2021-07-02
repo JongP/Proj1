@@ -43,14 +43,12 @@ public class WalletActivity extends AppCompatActivity {
         for(int i=0;i<db.userDao().getDataCount();i++){
             User_wallet user = db.userDao().getAll().get(i);
 
-            //if(user.getSym() != "balance"){
+            if(user.getSym() != "balance"){
                 CoinItem item = new CoinItem(user.getSym(), user.getQuan());
                 List.add(item);
-            //}
+            }
 
         }
-
-
 
 
         adapter = new CoinAdapter(WalletActivity.this,List);
