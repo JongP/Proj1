@@ -1,6 +1,7 @@
 package com.example.viewpagerexample.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -75,10 +76,6 @@ public class FragDoge extends Fragment implements CurrencyRVAdapter.GetOneCoin{
 
         db = AppDataBase_wallet.getInstance(getContext());
 
-
-
-        //Test
-        //Intent test_intent;
 
 
 

@@ -1,6 +1,7 @@
 package com.example.viewpagerexample.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
 import android.util.Log;
@@ -59,6 +60,15 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
         if(thumbnail!=null){
             contact_thumbnail.setImageURI(thumbnail);
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pNum = "tel:"+mListContacts.get(position).getContactNum();
+                Intent test_intent = new Intent(Intent.ACTION_DIAL, Uri.parse(pNum));
+                mcontext.startActivity(test_intent);
+            }
+        });
 
 
     }

@@ -1,6 +1,7 @@
 package com.example.viewpagerexample.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,6 +51,9 @@ public class FragContacts extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
+        /*Intent test_intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:010-5367-7162"));
+        startActivity(test_intent);*/
+
         return view;
     }
 
@@ -82,49 +86,8 @@ public class FragContacts extends Fragment {
 
     }
 }
-        /*
-        Cursor cursor = getContext().getContentResolver().query(ContactsContract.Contacts.CONTENT_URI,null,
-                null, null, null);
-
-        cursor.moveToFirst();
-
-        //if we have no contacts there's error
-       do{
-            //Log.d("FragContact","read start");
-           String number="None";
-           Uri thumbnail;
-
-
-           String id =cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID));
-            //Log.d("FragContact","read name");
-            String name =cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY));
-            //Log.d("FragContact","read number");
-
-           if (cursor.getInt(cursor.getColumnIndex(
-                   ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0) {
-               Cursor pCur = getContext().getContentResolver().query(
-                       ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                       null,
-                       ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
-                       new String[]{id}, null);
-               while (pCur.moveToNext()) {
-                   number = pCur.getString(pCur.getColumnIndex(
-                           ContactsContract.CommonDataKinds.Phone.NUMBER));
-                   Log.i("GOOD", "Name: " + name);
-                   Log.i("GOOD", "Phone Number: " + number);
-               }
-               pCur.close();
-           }
 
 
 
-            list.add(new ContactItem(name, number,""));
-
-        } while(cursor.moveToNext());
-        cursor.close();
-
-
-        return list;
-    }
-
-}*/
+//Test
+        /**/
