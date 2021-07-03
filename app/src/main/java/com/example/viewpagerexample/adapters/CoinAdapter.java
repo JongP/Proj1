@@ -1,6 +1,7 @@
 package com.example.viewpagerexample.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +57,12 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.ViewHolder> {
         coin_name.setText(coinItem.getName());
         coin_num.setText("Quan: "+String.valueOf(coinItem.getMany()));
         coin_price.setText("$ "+ String.valueOf(coinItem.getPrice()));
+
+        if(ratio>=0.0){
+            coin_ratio.setTextColor(Color.parseColor("#FF0000"));
+        }else {
+            coin_ratio.setTextColor(Color.parseColor("#0000FF"));
+        }
         coin_ratio.setText(String.valueOf(ratio)+" %");
 
 

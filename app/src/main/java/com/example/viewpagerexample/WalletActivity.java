@@ -48,6 +48,12 @@ public class WalletActivity extends AppCompatActivity {
         List<User_wallet> user_walletList = db.userDao().getAll();
 
 
+
+        adapter = new CoinAdapter(WalletActivity.this,coinList);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(WalletActivity.this, RecyclerView.VERTICAL, false));
+
+
         for(User_wallet user_wallet : user_walletList){
             if(user_wallet.getSym().equals("balance")) {
                 curBal = user_wallet.getVal();
@@ -55,6 +61,8 @@ public class WalletActivity extends AppCompatActivity {
             }
             String uSym = user_wallet.getSym();
             int uQuan = user_wallet.getQuan();
+            if(uQuan==0) continue;
+
             double uValue = user_wallet.getVal();
             double current_price = intent.getDoubleExtra(uSym,0.0);
             double ratio = (uValue-current_price)/uValue;
@@ -64,14 +72,11 @@ public class WalletActivity extends AppCompatActivity {
 
             CoinItem item = new CoinItem(uSym,uQuan, current_price,ratio);
             coinList.add(item);
+            adapter.notifyDataSetChanged();
         }
 
 
         tv_walletBalnce.setText("$ "+String.valueOf(curBal));
-
-        adapter = new CoinAdapter(WalletActivity.this,coinList);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(WalletActivity.this, RecyclerView.HORIZONTAL, false));
 
     }
 }
