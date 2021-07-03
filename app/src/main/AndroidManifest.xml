@@ -13,8 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ViewPagerExample">
-        <activity android:name=".OrderActivity"></activity>
+        <activity android:name=".OrderActivity" />
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,6 +23,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".WalletActivity" />
+        <activity android:name=".Image_show"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog">
+
+        </activity>
     </application>
 
 </manifest>

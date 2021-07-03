@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -24,7 +25,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.viewpagerexample.Image_show;
 import com.example.viewpagerexample.R;
+import com.example.viewpagerexample.Room.AppDataBase_gallery;
 import com.example.viewpagerexample.adapters.ImageAdapter;
 import com.example.viewpagerexample.adapters.RecyclerViewDecoration;
 
@@ -54,6 +57,9 @@ public class FragGallery extends Fragment {
 
     RecyclerView recyclerView;  // 이미지를 보여줄 리사이클러뷰
     ImageAdapter adapter;  // 리사이클러뷰에 적용시킬 어댑터
+    GridLayoutManager gridLayoutManager;
+
+    AppDataBase_gallery db;
 
     private SwipeRefreshLayout swipe;
 
@@ -76,6 +82,8 @@ public class FragGallery extends Fragment {
 
         sharePref = getActivity().getSharedPreferences(SHARE_NAME, Context.MODE_PRIVATE);
         editor = sharePref.edit();
+        gridLayoutManager = new GridLayoutManager(getContext(), 4);
+        db = AppDataBase_gallery.getInstance(getContext());
 
         swipe = view.findViewById(R.id.swipelayout);
 
@@ -92,7 +100,7 @@ public class FragGallery extends Fragment {
                 }
 
                 recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
+                recyclerView.setLayoutManager(gridLayoutManager);
 
                 swipe.setRefreshing(false);
             }
@@ -124,8 +132,8 @@ public class FragGallery extends Fragment {
 
         adapter = new ImageAdapter(uriList, getContext());
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
-        //recyclerView.addItemDecoration(new RecyclerViewDecoration(5, 5));
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.addItemDecoration(new RecyclerViewDecoration(getContext(), 3,3));
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,9 +148,15 @@ public class FragGallery extends Fragment {
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 removeData();
+                db.userDao().deleteAll();
             }
         });
+
+
+
+
 
         return view;
     }
@@ -191,8 +205,8 @@ public class FragGallery extends Fragment {
                         updateData(cnt);
                         adapter = new ImageAdapter(uriList, getContext());
                         recyclerView.setAdapter(adapter);   // 리사이클러뷰에 어댑터 세팅
-                        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));     // 리사이클러뷰 수평 스크롤 적용
-                        // recyclerView.addItemDecoration(new RecyclerViewDecoration(10, 10));
+                        recyclerView.setLayoutManager(gridLayoutManager);     // 리사이클러뷰 수평 스크롤 적용
+                        recyclerView.addItemDecoration(new RecyclerViewDecoration(getContext(), 3,3));
 
 
 
@@ -216,8 +230,8 @@ public class FragGallery extends Fragment {
 
                     adapter = new ImageAdapter(uriList, getContext());
                     recyclerView.setAdapter(adapter);
-                    recyclerView.setLayoutManager(new GridLayoutManager(getContext(),4));
-                    //recyclerView.addItemDecoration(new RecyclerViewDecoration(10, 10));
+                    recyclerView.setLayoutManager(gridLayoutManager);
+                    recyclerView.addItemDecoration(new RecyclerViewDecoration(getContext(), 3,3));
 
                 }
             }
