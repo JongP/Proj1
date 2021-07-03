@@ -12,4 +12,7 @@
     <color name="black_shade_2">#272833</color>
     <color name="black_shade_3">#F48FB1</color>
 
+    <color name="my_red">#FF0000</color>
+    <color name="my_blue">#0000FF</color>
+
 </resources>

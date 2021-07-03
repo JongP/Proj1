@@ -107,12 +107,33 @@ public class FragDoge extends Fragment implements CurrencyRVAdapter.GetOneCoin{
             public void onClick(View v) {
 
                 Intent intent = new Intent(getActivity().getApplicationContext(), WalletActivity.class);
+
+                List<User_wallet> priceWalletList = db.userDao().getAll();
+                for(User_wallet wallet : priceWalletList){
+                    String pSymbol = wallet.getSym();
+
+                    Log.d("Saturday Morning", "FragDOge: "+pSymbol+" intent starts");
+
+                    if(pSymbol.equals("balance")) {
+                        continue;
+                    }
+
+                    for(CurrencyModel currencyModel : currencyModelArrayList){
+                        String cSym = currencyModel.getSymbol();
+                        Log.d("Saturday Morning", "FragDOge: "+pSymbol+" comparing to "+cSym);
+
+                        if(cSym.equals(pSymbol)){
+                            double cPrice = currencyModel.getPrice();
+                            intent.putExtra(pSymbol,cPrice);
+                            Log.d("Saturday Morning","FragDoge: "+ pSymbol+ " "+String.valueOf(cPrice));
+                            break;
+                        }
+                    }
+                }
+
                 startActivity(intent);
             }
         });
-
-
-
         return view;
     }
 

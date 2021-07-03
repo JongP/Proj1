@@ -82,16 +82,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Total"
+            android:text="Balance"
             android:textSize="7pt">
 
         </TextView>
 
         <TextView
+            android:id="@+id/tv_walletBalnce"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Balance"
-            android:gravity="end">
+            android:gravity="end"
+            android:text="Balance">
 
         </TextView>
 

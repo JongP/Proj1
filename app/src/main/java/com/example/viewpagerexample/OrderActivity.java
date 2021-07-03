@@ -72,7 +72,7 @@ public class OrderActivity extends AppCompatActivity {
                 if(quantity <10){
                     quantity++;
                     tv_quantity.setText(String.valueOf(quantity));
-                    totalPrice = quantity*price;
+                    totalPrice = Math.round(quantity*price*100)/100.0;
                     tv_total.setText("$ "+String.valueOf(totalPrice));
                 }
                 else{
@@ -87,7 +87,7 @@ public class OrderActivity extends AppCompatActivity {
                 if(quantity >0){
                     quantity--;
                     tv_quantity.setText(String.valueOf(quantity));
-                    totalPrice = quantity*price;
+                    totalPrice = Math.round(quantity*price*100)/100.0;
                     tv_total.setText("$ "+String.valueOf(totalPrice));
                 }else{
                     Toast.makeText(getApplicationContext(),"no under zero",Toast.LENGTH_SHORT).show();
@@ -104,10 +104,17 @@ public class OrderActivity extends AppCompatActivity {
                 if(totalPrice>balance){
                     Toast.makeText(getApplicationContext(),"Not enough cash, go back to work.",Toast.LENGTH_SHORT).show();
                 }else{
+                    double my_value = db.userDao().getValue(symbol);
+                    my_value=(my_value*count+totalPrice)/(count+quantity);
+                    my_value=Math.round(my_value*100)/100.0;
+
                     balance = Math.round((balance-totalPrice)*100)/100.0;
                     count+=quantity;
 
-                    db.userDao().update(count,balance,symbol);
+
+
+
+                    db.userDao().update(count,my_value,symbol);
                     db.userDao().update(0,balance,"balance");
 
                     Toast.makeText(getApplicationContext(),"We're heading to Mars.",Toast.LENGTH_SHORT).show();
@@ -125,10 +132,12 @@ public class OrderActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Not enough coins, buy some.",Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    double my_value = db.userDao().getValue(symbol);
+
                     balance = Math.round((balance+totalPrice)*100)/100.0;
                     count = count-quantity;
 
-                    db.userDao().update(count,balance,symbol);
+                    db.userDao().update(count,my_value,symbol);
                     db.userDao().update(0,balance,"balance");
 
                     Toast.makeText(getApplicationContext(),"Bye",Toast.LENGTH_SHORT).show();

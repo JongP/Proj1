@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.viewpagerexample.CoinItem;
@@ -41,13 +42,21 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        TextView coin_name, coin_num;
+        TextView coin_name, coin_num,coin_price, coin_ratio;
 
         coin_name = holder.coin_name;
         coin_num = holder.coin_num;
+        coin_price =holder.coin_price;
+        coin_ratio = holder.coin_ratio;
 
-        coin_name.setText(mListContacts.get(position).getName());
-        coin_num.setText(String.valueOf(mListContacts.get(position).getMany()));
+        CoinItem coinItem =mListContacts.get(position);
+        double ratio = coinItem.getRatio();
+
+
+        coin_name.setText(coinItem.getName());
+        coin_num.setText("Quan: "+String.valueOf(coinItem.getMany()));
+        coin_price.setText("$ "+ String.valueOf(coinItem.getPrice()));
+        coin_ratio.setText(String.valueOf(ratio)+" %");
 
 
     }
@@ -59,13 +68,15 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView coin_name, coin_num;
+        TextView coin_name, coin_num,coin_price, coin_ratio;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             coin_name = itemView.findViewById(R.id.coin_name);
             coin_num = itemView.findViewById(R.id.coin_number);
+            coin_price = itemView.findViewById(R.id.coin_price);
+            coin_ratio =itemView.findViewById(R.id.coin_ratio);
 
 
         }
