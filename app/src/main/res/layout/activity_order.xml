@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Going To Mars"
-        android:textColor="@color/black"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -139,7 +138,6 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:text="0"
-            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <Button
