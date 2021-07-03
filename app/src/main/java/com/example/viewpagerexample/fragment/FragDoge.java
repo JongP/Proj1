@@ -75,12 +75,19 @@ public class FragDoge extends Fragment implements CurrencyRVAdapter.GetOneCoin{
 
         db = AppDataBase_wallet.getInstance(getContext());
 
+
+
+        //Test
+        //Intent test_intent;
+
+
+
         if(db.userDao().getDataCount()==0){
             User_wallet user = new User_wallet("balance", 0, 50000.0);
             db.userDao().insert(user);
         }
 
-        Log.d("look", "getQuantity"+db.userDao().getQuantity("DOGE"));
+        //Log.d("look", "getQuantity"+db.userDao().getQuantity("DOGE"));
 
         getCurrencyData();
 
@@ -130,7 +137,6 @@ public class FragDoge extends Fragment implements CurrencyRVAdapter.GetOneCoin{
                         }
                     }
                 }
-
                 startActivity(intent);
             }
         });
@@ -158,7 +164,6 @@ public class FragDoge extends Fragment implements CurrencyRVAdapter.GetOneCoin{
         else {
             currencyRVAdapter.filterList(filterList);
         }
-
     }
 
 

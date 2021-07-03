@@ -30,6 +30,7 @@ public class WalletActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     double curBal=0.0;
     double final_value=0.0;
+    int total_quan =0;
 
     ArrayList<CoinItem> coinList = new ArrayList<>();
     CoinAdapter adapter;  // 리사이클러뷰에 적용시킬 어댑터
@@ -57,6 +58,8 @@ public class WalletActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(WalletActivity.this, RecyclerView.VERTICAL, false));
 
         final_value=0.0;
+        total_quan =0;
+
         for(User_wallet user_wallet : user_walletList){
             if(user_wallet.getSym().equals("balance")) {
                 curBal = user_wallet.getVal();
@@ -69,8 +72,10 @@ public class WalletActivity extends AppCompatActivity {
             double uValue = user_wallet.getVal();
             double current_price = intent.getDoubleExtra(uSym,0.0);
             double ratio = ((current_price-uValue)/uValue)*100.0;
-            final_value+=uValue*uQuan;
+
             ratio = Math.round(ratio*100)/100.0;
+            final_value += ratio*uQuan;
+            total_quan+=uQuan;
 
             //Log.d("Saturday Morning", "Wallet: "+uSym+ " "+String.valueOf(current_price));
 
@@ -83,15 +88,17 @@ public class WalletActivity extends AppCompatActivity {
         tv_walletBalnce.setText("$ "+String.valueOf(curBal));
         Log.d("Saturday Morning", "Wallet: "+String.valueOf(final_value) +" "+String.valueOf(curBal) );
 
-        double bottomline_ratio = ((final_value+curBal-50000.0)/50000.0)*100.0;
+        double bottomline_ratio = final_value/total_quan;
         bottomline_ratio = Math.round(bottomline_ratio*1000)/1000.0;
         if(bottomline_ratio>=0.0){
             tv_finalratio.setTextColor(Color.parseColor("#FF0000"));
+            tv_finalratio.setText("+"+String.valueOf(bottomline_ratio)+" %");
         }else{
             tv_finalratio.setTextColor(Color.parseColor("#0000FF"));
+            tv_finalratio.setText(String.valueOf(bottomline_ratio)+" %");
         }
 
-        tv_finalratio.setText(String.valueOf(bottomline_ratio)+" %");
+
 
     }
 }
