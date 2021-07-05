@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class FragDoge extends Fragment implements CurrencyRVAdapter.GetOneCoin{
     private View view;
@@ -55,6 +56,7 @@ public class FragDoge extends Fragment implements CurrencyRVAdapter.GetOneCoin{
     private FloatingActionButton fltbtn;
     private AppDataBase_wallet db;
     private SwipeRefreshLayout sl_doge;
+
 
     //상태 저장하기
     public static FragDoge newInstance() {
@@ -78,9 +80,6 @@ public class FragDoge extends Fragment implements CurrencyRVAdapter.GetOneCoin{
         sl_doge = view.findViewById(R.id.sl_doge);
 
         db = AppDataBase_wallet.getInstance(getContext());
-
-
-
 
         if(db.userDao().getDataCount()==0){
             User_wallet user = new User_wallet("balance", 0, 50000.0);
@@ -157,12 +156,6 @@ public class FragDoge extends Fragment implements CurrencyRVAdapter.GetOneCoin{
     }
 
 
-    @Override
-    public void onResume() {
-        //currencyModelArrayList.clear();
-        //getCurrencyData();
-        super.onResume();
-    }
 
     private  void filterCurrencies(String currency){
         ArrayList<CurrencyModel> filterList = new ArrayList<>();

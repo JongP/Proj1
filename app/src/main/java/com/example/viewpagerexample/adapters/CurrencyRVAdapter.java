@@ -26,6 +26,7 @@ public class CurrencyRVAdapter extends RecyclerView.Adapter<CurrencyRVAdapter.Vi
     private  static DecimalFormat df2 = new DecimalFormat("#.##");
     GetOneCoin interfaceCoin;
 
+
     public CurrencyRVAdapter(GetOneCoin interfaceCoin){
         this.interfaceCoin = interfaceCoin;
     }

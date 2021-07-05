@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:text="Elon Mask"/>
+                android:text="Elon Musk"/>
 
             <TextView
                 android:id="@+id/user_balance"

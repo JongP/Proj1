@@ -1,6 +1,7 @@
 package com.example.viewpagerexample;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.media.AudioManager;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 import com.example.viewpagerexample.Room.AppDataBase_wallet;
 import com.example.viewpagerexample.Room.User_wallet;
 
+import java.util.Random;
+
 public class OrderActivity extends AppCompatActivity {
 
     private TextView tv_symbol,tv_name, tv_price, tv_quantity,tv_total,tv_coinown,tv_coinbalance;
@@ -25,6 +28,12 @@ public class OrderActivity extends AppCompatActivity {
     Double totalPrice, balance;
     private AppDataBase_wallet db;
     private SoundPool soundPool = null;
+    private Random rand  = new Random();
+    private CardView cv_coin;
+
+    private final String[] advices = {"진짜 고수는 자주자주 쉬는 사람이다.","깨지는 것은 원칙을 어겼기 때문이다.", "살 껄, 팔 껄","투자는 패션이 아니다."
+            ,"숲을 먼저 보고 나무를 보아라.","사는 것보다 파는 것이 중요하다.","때가 올때까지 기다리는 사람이 성공한다."
+            ,"시장 분위기에 도취되지 마라.","여유자금으로 투자하라.","시장은 확신을 요구한다."};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +52,11 @@ public class OrderActivity extends AppCompatActivity {
         btn_sell = findViewById(R.id.btn_sell);
         tv_coinown = findViewById(R.id.tv_coinown);
         tv_coinbalance =findViewById(R.id.tv_coinbalance);
+        cv_coin = findViewById(R.id.cv_coin);
         quantity = 0;
         db = AppDataBase_wallet.getInstance(this);
+
+
 
 
         Intent intent = getIntent();
@@ -52,7 +64,8 @@ public class OrderActivity extends AppCompatActivity {
         String name = intent.getStringExtra("name");
         Double price = intent.getDoubleExtra("price",0);
 
-
+        int rand_idx = rand.nextInt(8);
+        Toast.makeText(this,advices[rand_idx],Toast.LENGTH_SHORT).show();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                soundPool = new SoundPool.Builder().build();
@@ -168,6 +181,16 @@ public class OrderActivity extends AppCompatActivity {
                     tv_coinbalance.setText("$ "+String.valueOf(balance));
                     tv_coinown.setText("quantity: "+String.valueOf(count));
                 }
+            }
+        });
+
+
+        cv_coin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent webIntent = new Intent(getApplicationContext(),NewsWebActivity.class);
+                webIntent.putExtra("name",name);
+                startActivity(webIntent);
             }
         });
 
