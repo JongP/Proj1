@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="15dp">
             <ImageView
-                android:id="@+id/user_pic"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/elonmask"
@@ -39,7 +38,6 @@
             android:padding="20dp">
 
             <TextView
-                android:id="@+id/user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"

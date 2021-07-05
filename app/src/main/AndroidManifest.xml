@@ -9,14 +9,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="Tabs Project"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/ic_launcher_check"
+        android:label="Flower Coin"
+        android:roundIcon="@mipmap/ic_launcher_check_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ViewPagerExample">
         <activity android:name=".OrderActivity" />
         <activity android:name=".MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

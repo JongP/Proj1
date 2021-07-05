@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -53,6 +54,7 @@ public class FragDoge extends Fragment implements CurrencyRVAdapter.GetOneCoin{
     private CurrencyRVAdapter currencyRVAdapter;
     private FloatingActionButton fltbtn;
     private AppDataBase_wallet db;
+    private SwipeRefreshLayout sl_doge;
 
     //상태 저장하기
     public static FragDoge newInstance() {
@@ -73,6 +75,7 @@ public class FragDoge extends Fragment implements CurrencyRVAdapter.GetOneCoin{
         currenciesRV.setLayoutManager(new LinearLayoutManager(getContext()));
         currenciesRV.setAdapter(currencyRVAdapter);
         fltbtn = view.findViewById(R.id.button);
+        sl_doge = view.findViewById(R.id.sl_doge);
 
         db = AppDataBase_wallet.getInstance(getContext());
 
@@ -137,6 +140,19 @@ public class FragDoge extends Fragment implements CurrencyRVAdapter.GetOneCoin{
                 startActivity(intent);
             }
         });
+
+        sl_doge.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                currencyModelArrayList.clear();
+                getCurrencyData();
+
+
+                sl_doge.setRefreshing(false);
+            }
+        });
+
+
         return view;
     }
 
