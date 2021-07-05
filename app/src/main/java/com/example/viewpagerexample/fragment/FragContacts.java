@@ -51,9 +51,6 @@ public class FragContacts extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
-        /*Intent test_intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:010-5367-7162"));
-        startActivity(test_intent);*/
-
         return view;
     }
 

@@ -3,6 +3,9 @@ package com.example.viewpagerexample;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,11 +24,13 @@ public class OrderActivity extends AppCompatActivity {
     private int quantity,count;
     Double totalPrice, balance;
     private AppDataBase_wallet db;
+    private SoundPool soundPool = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+
 
         tv_symbol = findViewById(R.id.tv_coinsymbol);
         tv_name = findViewById(R.id.tv_coinname);
@@ -41,10 +46,23 @@ public class OrderActivity extends AppCompatActivity {
         quantity = 0;
         db = AppDataBase_wallet.getInstance(this);
 
+
         Intent intent = getIntent();
         String symbol = intent.getStringExtra("symbol");
         String name = intent.getStringExtra("name");
         Double price = intent.getDoubleExtra("price",0);
+
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+               soundPool = new SoundPool.Builder().build();
+        } else {
+            soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        }
+        int soundId1 = soundPool.load(getApplicationContext(), R.raw.uii, 1);
+        int soundId2 =soundPool.load(getApplicationContext(), R.raw.mars, 1);
+
+
 
         //have to check
         count = db.userDao().getQuantity(symbol);
@@ -111,7 +129,9 @@ public class OrderActivity extends AppCompatActivity {
                     balance = Math.round((balance-totalPrice)*100)/100.0;
                     count+=quantity;
 
-
+                    if(symbol.equals("DOGE")){
+                        int play = soundPool.play(soundId2, 1.0f, 1.0f, 1, 0,1.0f);
+                    }
 
 
                     db.userDao().update(count,my_value,symbol);
@@ -134,6 +154,10 @@ public class OrderActivity extends AppCompatActivity {
                 else{
                     double my_value = db.userDao().getValue(symbol);
 
+                    if(symbol.equals("DOGE")){
+                        int play = soundPool.play(soundId1, 1.0f, 1.0f, 1, 0,1.0f);
+                    }
+
                     balance = Math.round((balance+totalPrice)*100)/100.0;
                     count = count-quantity;
 
@@ -149,6 +173,16 @@ public class OrderActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(soundPool !=null){
+            soundPool.release();
+            soundPool=null;
+        }
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
