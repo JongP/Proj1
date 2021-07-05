@@ -129,8 +129,38 @@ public class FragGallery extends Fragment {
                 Bitmap bm = BitmapFactory.decodeFile(imgpath);
                 Log.d("look", "비트맵성공"+bm);
 
+                ExifInterface ei = new ExifInterface(imgpath);
+                int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                        ExifInterface.ORIENTATION_UNDEFINED);
 
-                Uri uri_set = getImageUri(getContext(), bm);
+//                            //사진해상도가 너무 높으면 비트맵으로 로딩
+                            BitmapFactory.Options options = new BitmapFactory.Options();
+                            options.inSampleSize = 8; //8분의 1크기로 비트맵 객체 생성
+                            Bitmap bitmap = BitmapFactory.decodeFile(imgpath, options);
+
+                Bitmap rotatedBitmap = null;
+                switch (orientation) {
+
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        rotatedBitmap = rotateImage(bm, 90);
+                        break;
+
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        rotatedBitmap = rotateImage(bm, 180);
+                        break;
+
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        rotatedBitmap = rotateImage(bm, 270);
+                        break;
+
+                    case ExifInterface.ORIENTATION_NORMAL:
+                    default:
+                        rotatedBitmap = bm;
+                }
+
+
+
+                Uri uri_set = getImageUri(getContext(), rotatedBitmap);
                 Log.d("look", "uri 성공");
 
                 uriList.add(uri_set);
@@ -256,6 +286,8 @@ public class FragGallery extends Fragment {
         try {
             tempFile.createNewFile();   // 자동으로 빈 파일을 생성하기
             FileOutputStream out = new FileOutputStream(tempFile);  // 파일을 쓸 수 있는 스트림을 준비하기
+
+
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);   // compress 함수를 사용해 스트림에 비트맵을 저장하기
             out.close();    // 스트림 닫아주기
             cnt++;
