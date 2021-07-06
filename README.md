@@ -1,11 +1,11 @@
 # Proj1
 팀원: 2분반 박종회, 송재현
 
-<OVERVIEW>
+## <개요>
 2021 몰입캠프의 1주차 과제로 앱을 개발했다. 주어진 과제로는 세개의 탭, 연락처 기능, 갤러리 기능이 있었다. 우리는 위의 내용에 전화, 사진촬영과 더불어 자유 주제로 비트코인 시세를 보며 모의투자를 할 수 있는 기능을 추가해 앱을 더 발전시켜 보았다. 
 
 
-## <ENVIRONMENT>
+## <실행 환경>
 최소로 요구되는 API 버전은 API16(Jelly Bean)이고, 타겟 API는 API30이다. Android Studio emulator로 앱 실행 시, 앱에서 사용되는 두개의 local DB로 인해 성능이 저하될 수 있다.
 
 
@@ -51,7 +51,7 @@
 
 ### PHOTOS)
 Uri를 clipdata로 받아 내부저장소에 비트맵으로 변환 후 저장. recyclerView에 adapt할 uri 추가.
-<br/><br/>ImageAdapter에서 uri를 imageview에 glide를 사용해 표시,
+<br/>ImageAdapter에서 uri를 imageview에 glide를 사용해 표시,
 <br/>SharedPreference를 통해 앱 내부에 사진 갯수 저장.
 <br/>캐시에서 비트맵을 가져와 다시 uri로 변환해 adapter에 추가. 이 과정에서 로컬에 사진이 재저장되는 문제 발생. 
 <br/>gallery_camera 액티비티 전환으로 카메라에서 찍은 사진을 bitmap으로 받고, 그 후 로컬에 저장.
@@ -73,6 +73,6 @@ API를 통해 실시간 시세 데이터를 가져옴.
 
 
 
-## <Easter Egg>
+## <이스터 에그>
 CONTACTS에서 연락처에 “최준”을 만들고 전화를 걸어본다면?
 <br/>GAZZZA에서 “DOGE”를 사고 팔아 본다면?
