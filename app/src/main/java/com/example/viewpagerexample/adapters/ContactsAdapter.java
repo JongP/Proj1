@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.viewpagerexample.ContactItem;
+import com.example.viewpagerexample.JoonActivity;
 import com.example.viewpagerexample.R;
 import com.example.viewpagerexample.utils.ContactData;
 
@@ -67,6 +68,25 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
                 String pNum = "tel:"+mListContacts.get(position).getContactNum();
                 Intent test_intent = new Intent(Intent.ACTION_DIAL, Uri.parse(pNum));
                 mcontext.startActivity(test_intent);
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                if(mListContacts.get(position).getContactName().equals("최준")){
+                    Intent joon_intent = new Intent(mcontext, JoonActivity.class);
+                    mcontext.startActivity(joon_intent);
+                    return true;
+
+                }
+
+
+                String pNum = "tel:"+mListContacts.get(position).getContactNum();
+                Intent test_intent = new Intent(Intent.ACTION_CALL, Uri.parse(pNum));
+                mcontext.startActivity(test_intent);
+                return true;
             }
         });
 

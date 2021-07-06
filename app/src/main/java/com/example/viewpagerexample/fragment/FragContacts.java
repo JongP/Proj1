@@ -124,9 +124,9 @@ public class FragContacts extends Fragment {
 
             Uri kotUri = data.getAvatar();
 
-            Log.d("neverdie", "Name is " + kotName);
-            Log.d("neverdie", "number is " + number);
-            Log.d("neverdie", "Uri is " + kotUri);
+            //Log.d("neverdie", "Name is " + kotName);
+            //Log.d("neverdie", "number is " + number);
+            //Log.d("neverdie", "Uri is " + kotUri);
 
             list.add(new ContactItem(kotName, number, kotUri));
         }
