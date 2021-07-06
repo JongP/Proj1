@@ -36,6 +36,7 @@ import com.example.viewpagerexample.Room.AppDataBase_gallery;
 import com.example.viewpagerexample.adapters.ImageAdapter;
 import com.example.viewpagerexample.adapters.RecyclerViewDecoration;
 import com.example.viewpagerexample.gallery_camera;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -54,7 +55,7 @@ public class FragGallery extends Fragment {
     private View view;
     private Button add;
     private Button remove;
-    private Button cam;
+    private FloatingActionButton cam;
 
     private ImageView img1;
     private ImageView img2;
@@ -79,6 +80,7 @@ public class FragGallery extends Fragment {
     private SwipeRefreshLayout swipe;
 
     private String mCurrentPhotoPath;
+
 
 
     //상태 저장하기
