@@ -116,7 +116,7 @@
             android:layout_toLeftOf="@id/tv_coinown"
             android:padding="3dp"
             android:text="일론 머스크"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
 
         <TextView
