@@ -55,46 +55,14 @@ public class MainActivity extends AppCompatActivity {
         ) ).attach();
 
 
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED
-                &&ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-                &&ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED){
 
-        }
 
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED
-                &&ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-                &&ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED){
-            //뷰페이저 세팅
-            ViewPager2 viewPager = findViewById(R.id.viewPager);
-            fragmentPagerAdapter = new ViewPagerAdaptor(getSupportFragmentManager(),getLifecycle());
 
-            TabLayout tabLayout = findViewById(R.id.tab_layout);
-            viewPager.setAdapter(fragmentPagerAdapter);
-            new TabLayoutMediator(tabLayout, viewPager, ((tab, position) -> {
-                switch(position) {
-                    case 0:
-                        tab.setText("Contacts");
-                        break;
-                    case 1:
-                        tab.setText("Photos");
-                        break;
-                    case 2:
-                        tab.setText("Gazzza");
-                        break;
-                    default:
-                        tab.setText("null");
-                        break;
-                }
-            }
-            ) ).attach();
-        }
-    }
+
+
 
     public void OnCheckPermission(){
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED
