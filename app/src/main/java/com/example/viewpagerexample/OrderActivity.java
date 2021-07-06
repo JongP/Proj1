@@ -144,13 +144,15 @@ public class OrderActivity extends AppCompatActivity {
 
                     if(symbol.equals("DOGE")){
                         int play = soundPool.play(soundId2, 1.0f, 1.0f, 1, 0,1.0f);
+                        Toast.makeText(getApplicationContext(),"언젠가는 화성 갈끄니까",Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(),"We're heading to Mars.",Toast.LENGTH_SHORT).show();
                     }
 
 
                     db.userDao().update(count,my_value,symbol);
                     db.userDao().update(0,balance,"balance");
 
-                    Toast.makeText(getApplicationContext(),"We're heading to Mars.",Toast.LENGTH_SHORT).show();
                     tv_coinbalance.setText("$ "+String.valueOf(balance));
                     tv_coinown.setText("quantity: "+String.valueOf(count));
                 }

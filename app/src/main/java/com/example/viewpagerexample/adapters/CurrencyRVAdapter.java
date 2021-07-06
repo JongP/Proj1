@@ -79,11 +79,11 @@ public class CurrencyRVAdapter extends RecyclerView.Adapter<CurrencyRVAdapter.Vi
 
         @Override
         public void onClick(View v){
-            Log.d("AdapterPlace","check");
-            Log.d("AdapterPlace",String.valueOf(getAdapterPosition()));
-            Log.d("AdapterPlace",String.valueOf(getAbsoluteAdapterPosition()));
+            //Log.d("AdapterPlace","check");
+            //Log.d("AdapterPlace",String.valueOf(getAdapterPosition()));
+            //Log.d("AdapterPlace",String.valueOf(getAbsoluteAdapterPosition()));
             //Log.d("AdapterPlace",String.valueOf(getBindingAdapter()));
-            Log.d("AdapterPlace",String.valueOf(currencyModelArrayList));
+            //Log.d("AdapterPlace",String.valueOf(currencyModelArrayList));
             int i = 0;
             List<CurrencyModel> arrayList = null;
             i=getAbsoluteAdapterPosition();
