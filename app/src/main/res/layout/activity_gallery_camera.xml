@@ -28,6 +28,7 @@
             android:id="@+id/start_camera"
             android:text="camera"
             android:layout_weight="1"
+            android:textStyle="bold"
             tools:ignore="MissingConstraints"
             android:layout_marginRight="2sp"/>
 
@@ -36,6 +37,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/save"
             android:text="save"
+            android:textStyle="bold"
+
             android:layout_weight="1"
 
             tools:ignore="MissingConstraints" />

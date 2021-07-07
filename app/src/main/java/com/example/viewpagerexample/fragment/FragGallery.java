@@ -169,6 +169,11 @@ public class FragGallery extends Fragment {
 
                     case ExifInterface.ORIENTATION_NORMAL:
                     default:
+                        if(bitmap.getHeight()==bitmap.getWidth()){
+                            rotatedBitmap = rotateImage(bm, 90);
+                            break;
+
+                        }
                         rotatedBitmap = bm;
                 }
 
@@ -191,10 +196,16 @@ public class FragGallery extends Fragment {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
-                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), 100);
+
+                if (cnt >= 20) {
+                    Toast.makeText(getContext(), "갤러리가 가득 찼습니다.", Toast.LENGTH_LONG).show();
+
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
+                    intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                    startActivityForResult(Intent.createChooser(intent, "Select Picture"), 100);
+                }
             }
         });
 
@@ -217,7 +228,6 @@ public class FragGallery extends Fragment {
                 startActivity(intent);
             }
         });
-
 
 
 
@@ -251,8 +261,13 @@ public class FragGallery extends Fragment {
                 //이미지 URI 를 이용하여 이미지뷰에 순서대로 세팅한다.
                 if (clipData != null) {
 
-                    if(clipData.getItemCount() > 20) {   // 선택한 이미지가 11장 이상인 경우
-                        Toast.makeText(getContext(), "사진은 10장까지 선택 가능합니다.", Toast.LENGTH_LONG).show();
+                    if(clipData.getItemCount() > 20) {   // 선택한 이미지가 20장 이상인 경우
+                        Toast.makeText(getContext(), "사진은 20장까지 선택 가능합니다.", Toast.LENGTH_LONG).show();
+                    }
+
+                    else if(clipData.getItemCount()+cnt>20){
+                        Toast.makeText(getContext(), "최대 "+(20-cnt)+"만큼 선택 가능합니다.", Toast.LENGTH_LONG).show();
+
                     }
 
                     else {
@@ -266,6 +281,8 @@ public class FragGallery extends Fragment {
                                 InputStream instream = resolver.openInputStream(uri_re);
                                 Bitmap imgBitmap = BitmapFactory.decodeStream(instream);
 
+
+
                                 instream.close();   // 스트림 닫아주기
                                 saveBitmapToJpeg(imgBitmap);    // 내부 저장소에 저장
                             } catch (Exception e) {
@@ -273,6 +290,7 @@ public class FragGallery extends Fragment {
                             }
 
                         }
+
 
 
 
@@ -323,6 +341,8 @@ public class FragGallery extends Fragment {
         try {
             tempFile.createNewFile();   // 자동으로 빈 파일을 생성하기
             FileOutputStream out = new FileOutputStream(tempFile);  // 파일을 쓸 수 있는 스트림을 준비하기
+
+
 
 
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);   // compress 함수를 사용해 스트림에 비트맵을 저장하기
