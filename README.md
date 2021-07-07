@@ -83,12 +83,12 @@
 
 ### GAZZZA)
 1. API를 통해 실시간 시세 데이터를 가져옴.
-2. 가져온 JSON Object을 Parse하여 원하는  데이터를 뽑아냄.
+2. 가져온 JSON Object을 Parse하여 원하는 데이터를 뽑아냄.
 3. Adapter의 ArrayList 변수명을 바꾸는 방법으로 검색 기능을 구현함. (filterlist)
 4. 해당 fragment와 WalletActivity, OrderActivity 간의 activity 전환을 하며, intent 로 정보를 주고 받음. 
 5. NewsWebActivity: 코인의 이름을 통해 구글 검색 URL을 만들어내고, 웹뷰를 통해 뉴스 검색 기능을 추가함.
 6. Room을 통해 local DB를 관리함. 이를 통해 코인 구매 내역을 저장하고 수익률을 계산함. 이를 통해 휴대폰을 종료하고 재실행해도 데이터를 보관할 수 있음.
-7. swipel view를 통해 새로고침으로 코인 시세를 api에서 리로딩함. 
+7. swipe view를 통해 새로고침으로 코인 시세를 api에서 리로딩함. 
 8. 특정 버튼을 클릭하면, soundPool을 이용하여 음성이 재생되도록 구현함.
 
 
