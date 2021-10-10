@@ -1,5 +1,8 @@
 # Proj1
-팀원: 2분반 박종회, 송재현
+   
+## Team
+박종회: Contact(Tab1), Crypto-currency Trading Simulation(Tab3), EasterEgg  
+송재현: Photos(Tab2)  
 
 ## OVERVIEW
 2021 몰입캠프의 1주차 과제로 앱을 개발했다. 주어진 과제로는 세개의 탭, 연락처 기능, 갤러리 기능이 있었다. 우리는 위의 내용에 전화, 사진촬영과 더불어 자유 주제로 비트코인 시세를 보며 모의투자를 할 수 있는 기능을 추가해 앱을 더 발전시켜 보았다. 
